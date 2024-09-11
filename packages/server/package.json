@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc",
-    "dev": "tsx --watch --watch-preserve-output --conditions=development src/index.ts",
+    "dev": "nodemon --watch src --watch src/lib/canvas.json --exec 'tsx --conditions=development src/index.ts'",
     "start": "tsx --conditions=development src/index.ts"
   },
   "devDependencies": {

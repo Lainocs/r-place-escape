@@ -12,6 +12,7 @@
     "@tsconfig/esm": "^1.0.5",
     "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
+    "nodemon": "^3.1.4",
     "prettier": "^3.3.3"
   },
   "volta": {
