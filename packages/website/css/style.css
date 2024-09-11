@@ -56,3 +56,7 @@ td {
 #blue {
   background-color: blue;
 }
+
+.selected {
+  border: 2px solid black;
+}
