@@ -3,8 +3,8 @@
 // Shared state object
 const state = {
   selectedColor: localStorage.getItem('selectedColor') || 'green',
-  selectedRow: 0,
-  selectedCol: 0
+  selectedRow: parseInt(localStorage.getItem('selectedRow'), 10) || 0,
+  selectedCol: parseInt(localStorage.getItem('selectedCol'), 10) || 0
 };
 
 // Fetch and update the canvas
@@ -45,6 +45,8 @@ function updateSelection() {
     `#table tr:nth-child(${state.selectedRow + 1}) td:nth-child(${state.selectedCol + 1})`
   );
   selectedCell.classList.add('selected');
+  localStorage.setItem('selectedRow', state.selectedRow);
+  localStorage.setItem('selectedCol', state.selectedCol);
 }
 
 // Handle keydown events
@@ -69,8 +71,25 @@ function handleKeydown(event) {
       selectedCell.style.backgroundColor = state.selectedColor;
       updateCanvas();
       break;
+    case '1':
+      changeColor('green');
+      break;
+    case '2':
+      changeColor('red');
+      break;
+    case '3':
+      changeColor('blue');
+      break;
   }
   updateSelection();
+}
+
+// Change the selected color
+function changeColor(color) {
+  state.selectedColor = color;
+  localStorage.setItem('selectedColor', color);
+  const selectedColorDiv = document.getElementById('selectedColor');
+  selectedColorDiv.style.backgroundColor = state.selectedColor;
 }
 
 // Update the canvas on the server
@@ -97,9 +116,7 @@ function setupColorSelection() {
   colors.forEach((color) => {
     const colorElement = document.getElementById(color);
     colorElement.addEventListener('click', () => {
-      state.selectedColor = color;
-      localStorage.setItem('selectedColor', color);
-      selectedColorDiv.style.backgroundColor = state.selectedColor;
+      changeColor(color);
     });
   });
 }
