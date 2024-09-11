@@ -1,0 +1,17 @@
+{
+  "name": "@rploce/website",
+  "private": true,
+  "description": "A website able to serve a very basic r/place-like canvas.",
+  "author": "@escape.tech",
+  "type": "module",
+  "scripts": {
+    "dev": "parcel index.html --open",
+    "build": "parcel build index.html"
+  },
+  "volta": {
+    "extends": "../../package.json"
+  },
+  "devDependencies": {
+    "parcel": "^2.12.0"
+  }
+}
