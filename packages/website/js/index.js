@@ -2,7 +2,7 @@
 
 // Shared state object
 const state = {
-  selectedColor: 'green',
+  selectedColor: localStorage.getItem('selectedColor') || 'green',
   selectedRow: 0,
   selectedCol: 0
 };
@@ -40,8 +40,10 @@ function getCurrentCanvas() {
 // Update the selected cell
 function updateSelection() {
   const cells = document.querySelectorAll('td');
-  cells.forEach(cell => cell.classList.remove('selected'));
-  const selectedCell = document.querySelector(`#table tr:nth-child(${state.selectedRow + 1}) td:nth-child(${state.selectedCol + 1})`);
+  cells.forEach((cell) => cell.classList.remove('selected'));
+  const selectedCell = document.querySelector(
+    `#table tr:nth-child(${state.selectedRow + 1}) td:nth-child(${state.selectedCol + 1})`
+  );
   selectedCell.classList.add('selected');
 }
 
@@ -61,7 +63,9 @@ function handleKeydown(event) {
       if (state.selectedCol < 4) state.selectedCol++;
       break;
     case 'Enter':
-      const selectedCell = document.querySelector(`#table tr:nth-child(${state.selectedRow + 1}) td:nth-child(${state.selectedCol + 1})`);
+      const selectedCell = document.querySelector(
+        `#table tr:nth-child(${state.selectedRow + 1}) td:nth-child(${state.selectedCol + 1})`
+      );
       selectedCell.style.backgroundColor = state.selectedColor;
       updateCanvas();
       break;
@@ -90,10 +94,11 @@ function setupColorSelection() {
   selectedColorDiv.style.backgroundColor = state.selectedColor;
 
   const colors = ['green', 'red', 'blue'];
-  colors.forEach(color => {
+  colors.forEach((color) => {
     const colorElement = document.getElementById(color);
     colorElement.addEventListener('click', () => {
       state.selectedColor = color;
+      localStorage.setItem('selectedColor', color);
       selectedColorDiv.style.backgroundColor = state.selectedColor;
     });
   });
@@ -102,7 +107,7 @@ function setupColorSelection() {
 // Set up cell click events
 function setupCellClickEvents() {
   const cells = document.querySelectorAll('td');
-  cells.forEach(cell => {
+  cells.forEach((cell) => {
     cell.addEventListener('click', () => {
       cell.style.backgroundColor = state.selectedColor;
       updateCanvas();
@@ -120,4 +125,4 @@ function initialize() {
 }
 
 // Run the initialization
-document.addEventListener('DOMContentLoaded', initialize);
+setTimeout(initialize, 1000);
